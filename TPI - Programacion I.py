@@ -1,8 +1,18 @@
+# Parte A
+
+
 import csv
 
+
+# Convierte un nombre a minúsculas y sin espacios al principio/final,
+# para poder comparar nombres sin importar mayúsculas o espacios extra.
 def normalizar_nombre(nombre):
     return nombre.strip().lower()
 
+# Lee el archivo CSV indicado y devuelve una lista de diccionarios (uno por país).
+# Convierte población y superficie a enteros.
+# Si el archivo no existe, o una fila tiene datos inválidos, lo informa y continúa
+# sin interrumpir la carga del resto de los países.
 def cargar_paises(nombre_archivo):
     paises = []
     try:
@@ -10,6 +20,7 @@ def cargar_paises(nombre_archivo):
             lector = csv.DictReader(f)
             for fila in lector:
                 try:
+                    # Convertimos población y superficie de string a entero
                     fila["poblacion"] = int(fila["poblacion"])
                     fila["superficie"] = int(fila["superficie"])
                     paises.append(fila)
@@ -20,6 +31,9 @@ def cargar_paises(nombre_archivo):
     return paises
 
 
+# Pide al usuario los datos de un país nuevo (nombre, continente, población,
+# superficie), valida que no haya campos vacíos ni datos inválidos,
+# y lo agrega a la lista de países.
 def agregar_pais(paises):
     nombre = input("Nombre del país: ").strip()
     if nombre == "":
@@ -43,11 +57,15 @@ def agregar_pais(paises):
         print("Error: debe ingresar un número entero")
         return    
 
+    # Armamos el diccionario del país y lo agregamos a la lista
     pais = {"nombre": nombre, "poblacion": poblacion, "superficie": superficie, "continente": continente}
     paises.append(pais)
     print(f"'{nombre}' agregado correctamente.")
 
 
+# Busca un país por nombre (coincidencia exacta, sin importar mayúsculas/espacios)
+# y permite actualizar su población y superficie.
+# Si no se encuentra el país, informa al usuario.
 def actualizar_paises(paises):
     nombre_buscado = input("Ingrese el nombre del pais al que le quiere aplicar una actualizacion: ")
     if normalizar_nombre(nombre_buscado) == "":
@@ -76,6 +94,8 @@ def actualizar_paises(paises):
     print(f"No se encontró ningún país con el nombre '{nombre_buscado}'.")
  
 
+# Escribe la lista de países en el archivo CSV indicado, sobrescribiendo
+# su contenido anterior. Maneja errores que puedan ocurrir al escribir.
 def guardar_paises(paises, nombre_archivo):
     try:
         with open(nombre_archivo , "w", encoding="utf-8", newline="") as f:
@@ -90,6 +110,9 @@ def guardar_paises(paises, nombre_archivo):
         print(f"Error al guardar: {e}")
     
 
+# Muestra el menú principal y procesa la opción elegida por el usuario,
+# llamando a la función correspondiente. Se repite hasta que el usuario
+# elige guardar y salir (opción 7).
 def menu(paises):
     while True:
         print("\n--- GESTIÓN DE PAÍSES ---")
@@ -123,6 +146,7 @@ def menu(paises):
 
 
 # Parte B
+
 def buscar_por_nombre(paises):
     busc_pais_nom = input("Ingrese el nombre del país que desea buscar: ").strip().lower()
     if busc_pais_nom == "":
