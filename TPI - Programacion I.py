@@ -107,10 +107,6 @@ def menu(paises):
             agregar_pais(paises)
         elif opcion == "2":
             actualizar_paises(paises)
-            if opcion == "1":
-            agregar_pais(paises)
-        elif opcion == "2":
-            actualizar_paises(paises)
         elif opcion == "3":
             buscar_por_nombre(paises)
         elif opcion == "4":
@@ -125,9 +121,6 @@ def menu(paises):
         else:
             print("Opción inválida.")
 
-
-paises = cargar_paises("paises.csv")
-menu(paises)
 
 # Parte B
 def buscar_por_nombre(paises):
@@ -291,3 +284,6 @@ def mostrar_estadisticas(paises):
     for continente in continentes:
         print("  " + continente + ": " + str(continentes[continente]))
 
+
+paises = cargar_paises("paises.csv")
+menu(paises)
