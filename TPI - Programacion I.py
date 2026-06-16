@@ -147,6 +147,8 @@ def menu(paises):
 
 # Parte B
 
+# Busca países por nombre sin importar mayúsculas o espacios extra, y muestra los resultados.
+# Si el nombre del país que se busca está vacío, o no se encuentran coincidencias, devuelve al menú.
 def buscar_por_nombre(paises):
     busc_pais_nom = input("Ingrese el nombre del país que desea buscar: ").strip().lower()
     if busc_pais_nom == "":
@@ -165,6 +167,9 @@ def buscar_por_nombre(paises):
         for pais in resultados:
             print(pais)
 
+# Busca países por continente sin importar mayúsculas o espacios extra, y muestra los resultados.
+# Si el nombre del continente que se busca está vacío, o no se encuentran coincidencias, devuelve al menú.
+# Si el nombre del continente que se busca es válido, muestra todos los países que pertenecen a ese continente.
 def filtrar_por_continente(paises):
     busc_cont_nom = input("Ingrese el nombre del continente que desea buscar: ").strip().lower()
     if busc_cont_nom == "":
@@ -183,6 +188,11 @@ def filtrar_por_continente(paises):
         for pais in resultados:
             print(pais)
 
+# Busca países por población en un rango específico, y muestra los resultados.
+# Si los valores ingresados no son números enteros, o no se encuentran coincidencias, devuelve al menú.
+# Si no se ingresan números enteros, el try/except captura el error, muestra un mensaje y permite volver a intentar.
+# Si se ingresan números enteros pero no se encuentran países en ese rango, muestra un mensaje y devuelve al menú.
+# Si se encuentran países en ese rango, los muestra todos.
 def filtrar_por_poblacion(paises):
     try:
         minimo = int(input("Población mínima: "))
@@ -204,6 +214,8 @@ def filtrar_por_poblacion(paises):
         for pais in resultados:
             print(pais)
 
+# Similar a filtrar_por_poblacion, pero para superficie. 
+# Si los valores ingresados no son números enteros, o no se encuentran coincidencias, devuelve al menú.
 def filtrar_por_superficie(paises):
     try:
         minimo = int(input("Superficie mínima (km²): "))
@@ -226,6 +238,9 @@ def filtrar_por_superficie(paises):
         for pais in resultados:
             print(pais)
 
+# Muestra una especie de sub-menú para seleccionar los filtros, y llama a la función correspondiente según la elegida por el usuario.
+# Si selecciona una opción inválida, muestra un mensaje y devuelve al menú principal.
+
 def menu_filtros(paises):
     print("\n--- FILTRAR POR ---")
     print("1. Continente")
@@ -241,6 +256,7 @@ def menu_filtros(paises):
     else:
         print("Opción inválida.")
 
+# Muestra un sub-menú para seleccionar el criterio de ordenamiento (nombre, población o superficie) y la dirección (ascendente o descendente)
 def ordenar_paises(paises):
     print("\n--- ORDENAR POR ---")
     print("1. Nombre")
@@ -248,35 +264,38 @@ def ordenar_paises(paises):
     print("3. Superficie")
     criterio = input("Criterio: ").strip()
     
-    campos = {"1": "nombre", "2": "poblacion", "3": "superficie"}
+    campos = {"1": "nombre", "2": "poblacion", "3": "superficie"} # Se define un diccionario que relaciona las opciones del menú con los nombres de los campos en el diccionario de cada país. Esto permite usar la opción seleccionada para acceder al campo correspondiente al ordenar.
     if criterio not in campos:
         print("Opción inválida.")
         return
     
     direccion = input("¿Orden ascendente? (S/N): ").strip().lower()
 
-    if direccion == "n":
+    if direccion == "n": # Si el usuario elige orden descendente, se establece reverse=True para invertir el orden de la lista ordenada.
         reverse = True
 
     else:
         reverse = False
 
-    ordenados = sorted(paises, key=lambda p: p[campos[criterio]], reverse=reverse)
+    ordenados = sorted(paises, key=lambda p: p[campos[criterio]], reverse=reverse) # # De acuerdo a la opción seleccionada, se ordena la lista de países utilizando la función sorted() con una función lambda como clave de ordenamiento.
+
 
     for pais in ordenados:
         print(pais)
 
-def mostrar_estadisticas(paises):
+# Muestra estadísticas sobre los países cargados: el país con mayor población, el país con menor población, el promedio de población, el promedio de superficie, y la cantidad de países por continente.
+def mostrar_estadisticas(paises): # 
     if not paises:
         print("No hay países cargados.")
         return
 
     
-    mayor_pob = paises[0]
+    mayor_pob = paises[0] # # mayor_pob y menor_pob se inicializan con el primer país de la lista, y luego se comparan con cada país para encontrar el mayor y menor.
     menor_pob = paises[0]
     total_poblacion = 0
     total_superficie = 0
-    continentes = {}
+    continentes = {} # # continentes es un diccionario donde la clave es el nombre del continente y el valor es la cantidad de países que pertenecen a ese continente. Se va actualizando con cada país.
+
 
     for pais in paises:
         
@@ -291,10 +310,10 @@ def mostrar_estadisticas(paises):
         con = pais["continente"]
 
         if con in continentes:
-            continentes[con] = continentes[con] + 1
+            continentes[con] = continentes[con] + 1 # Si el continente ya está en el diccionario, se incrementa su contador en 1.
 
         else:
-            continentes[con] = 1
+            continentes[con] = 1 # Si el continente no está en el diccionario, se agrega con un contador inicial de 1.
 
     promedio_pob = total_poblacion / len(paises)
     promedio_sup = total_superficie / len(paises)
@@ -306,8 +325,8 @@ def mostrar_estadisticas(paises):
     print("Cantidad de países por continente:")
 
     for continente in continentes:
-        print("  " + continente + ": " + str(continentes[continente]))
+        print("  " + continente + ": " + str(continentes[continente])) # Se muestra el nombre del continente y la cantidad de países que pertenecen a ese continente.
 
 
-paises = cargar_paises("paises.csv")
+paises = cargar_paises("paises.csv") # Se carga la lista de países desde el archivo CSV "paises.csv" utilizando la función cargar_paises(), y luego se llama a la función menu() para mostrar el menú principal y permitir al usuario interactuar con la aplicación.
 menu(paises)
