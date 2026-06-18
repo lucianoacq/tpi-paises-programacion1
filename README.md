@@ -34,5 +34,5 @@ Este trabajo fue realizado por:
 
 ## Documentación y video
 
-- Documentación en PDF: file:///C:/Users/Usuario/OneDrive/TECNICATURA%20EN%20PROGRAMACION/1er%20Cuatrimestre/Programacion%20I/TPI%20-%20Programacion%20I/Informe%20Teorico%20-%20TPI%20Programacion%20I.pdf
+- Documentación en PDF: [Informe Teorico - TPI Programacion I.pdf](./Informe%20Teorico%20-%20TPI%20Programacion%20I.pdf)
 - Video demostrativo: https://www.youtube.com/watch?v=k1suDdM4U8I
