@@ -21,9 +21,9 @@ A continuación se muestra un ejemplo de cómo se ve la búsqueda de un país po
 
 Seleccione una opción: 3
 Ingrese el nombre del país que desea buscar: japon
-{'nombre': 'Japón', 'poblacion': 125800000, 'superficie': 377975, 'continente': 'Asia'}
+{'nombre': 'Japon', 'poblacion': 125800000, 'superficie': 377975, 'continente': 'Asia'}
 
-Como se puede ver, la búsqueda no distingue entre mayúsculas y minúsculas, y devuelve el país encontrado con todos sus datos.
+Como se puede ver, la búsqueda no distingue entre mayúsculas y minúsculas y admite coincidencias parciales. No normaliza tildes: el CSV incluido contiene `Japon`, sin tilde.
 
 
 ## Integrantes
@@ -36,3 +36,11 @@ Este trabajo fue realizado por:
 
 - Documentación en PDF: [Informe Teorico - TPI Programacion I.pdf](./Informe%20Teorico%20-%20TPI%20Programacion%20I.pdf)
 - Video demostrativo: https://www.youtube.com/watch?v=k1suDdM4U8I
+
+## Tecnologías y persistencia
+
+Python 3 y el módulo estándar `csv`, sin paquetes externos. Los registros se guardan en `paises.csv` al elegir **Guardar y salir**. Se recomienda hacer una copia del CSV para experimentar sin modificar los datos originales.
+
+## Alcance y mejoras posibles
+
+Proyecto académico de consola. El README conserva el reparto de tareas entre sus dos integrantes. Como mejoras futuras: rechazar valores negativos y países duplicados, validar los cambios antes de actualizar un registro y ampliar el manejo de errores del CSV. Estas validaciones no se presentan como funciones ya implementadas.
